@@ -60,7 +60,6 @@ public final class PodCalendar : UIViewController  ,  UICollectionViewDataSource
     
     public lazy var mainCollection : UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
         let collection = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.isMultipleTouchEnabled = true
@@ -187,11 +186,44 @@ public final class PodCalendar : UIViewController  ,  UICollectionViewDataSource
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.bounds.width / 8
-        let  height = collectionView.bounds.height / 6
+        let width = collectionView.bounds.width / 9
+        let  height = collectionView.bounds.height / 7
         return CGSize(width: width, height: height)
         
     }
+    
+    
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let day = indexPath.row - firstDayIndex + 2
+        let cal = Calendar.current
+        let dateComp = DateComponents(calendar: cal,
+                                      year: self.yearIndex + 2000,
+                                      month: self.index + 1,
+                                      day: day)
+        print(self.yearIndex + 2000)
+        print(self.index + 1)
+       // print(dateComp.weekday)
+        let firstDate : Date = dateComp.date!
+        let date = firstDate.addingTimeInterval(TimeInterval(330 * 60))
+        selectDates.append(date)
+        selectDate = date
+        print(selectDate)
+        print(selectDates)
+        
+    }
+    
+    
+    public func selectedDate() -> Date {
+        return selectDate
+    }
+    
+    
+    
+    public func selectedDates() -> [Date] {
+       
+        return selectDates
+    }
+    
     
     
     let dropDown = DropDown()

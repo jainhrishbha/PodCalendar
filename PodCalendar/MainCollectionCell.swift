@@ -32,5 +32,17 @@ public class MainCollectionCell : UICollectionViewCell {
     }
     
     
+    public override func prepareForReuse() {
+        super.prepareForReuse()
+        dateLabel.backgroundColor = UIColor.clear
+    }
+    
+    public override var isSelected: Bool {
+        didSet {
+            dateLabel.backgroundColor = isSelected ? .blue : .clear
+        }
+    }
+    
+    
     
 }
