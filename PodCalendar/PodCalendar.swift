@@ -24,13 +24,14 @@ public final class PodCalendar : UIViewController  ,  UICollectionViewDataSource
     var index = Int()
     var yearIndex = Int()
     var firstDayIndex = Int()
-    var allowsMultipleSelection = false
     var presentDate = Int()
     var presentMonth = Int()
     var presentYear = Int()
     var selectDate = Date()
     var selectDates = [Date]()
     var selectedIndex : Int? = nil
+    public var delegate : CalendarDelegate?
+    public var isMultipleTouchEnabled = false
     public lazy var monthBtn : UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -133,8 +134,7 @@ public final class PodCalendar : UIViewController  ,  UICollectionViewDataSource
         presentDate = dayComp.day!
         
         let Daycomponents = calendar.dateComponents([.weekday], from: date)
-        let dayOfWeek = Daycomponents.weekday
-        print(weekDays[dayOfWeek! - 1])
+        _ = Daycomponents.weekday
         self.getFirstDayOfMonth(year!, month!, 1)
         monthBtn.setTitle(months[index], for: .normal)
         yearBtn.setTitle(String(yearRange[yearIndex]), for: .normal)
@@ -200,28 +200,15 @@ public final class PodCalendar : UIViewController  ,  UICollectionViewDataSource
                                       year: self.yearIndex + 2000,
                                       month: self.index + 1,
                                       day: day)
-        print(self.yearIndex + 2000)
-        print(self.index + 1)
-       // print(dateComp.weekday)
         let firstDate : Date = dateComp.date!
         let date = firstDate.addingTimeInterval(TimeInterval(330 * 60))
-        selectDates.append(date)
         selectDate = date
-        print(selectDate)
-        print(selectDates)
+        delegate?.selectedDate(selectDate)
+        if isMultipleTouchEnabled {
+            selectDates.append(date)
+            delegate?.selectMultipleDates?(selectDates)
+        }
         
-    }
-    
-    
-    public func selectedDate() -> Date {
-        return selectDate
-    }
-    
-    
-    
-    public func selectedDates() -> [Date] {
-       
-        return selectDates
     }
     
     
@@ -312,15 +299,11 @@ public final class PodCalendar : UIViewController  ,  UICollectionViewDataSource
     
     func getFirstDayOfMonth(_ year : Int, _ month : Int , _ day : Int) {
         
-        print(year)
-        print(month)
-        print(day)
         let cal = Calendar.current
         let dateComp = DateComponents(calendar: cal,
                                       year: year,
                                       month: month,
                                       day: 1)
-       // print(dateComp.weekday)
         let firstDate : Date = dateComp.date!
         let comp = cal.dateComponents([.weekday], from: firstDate)
         firstDayIndex = comp.weekday ?? 0
@@ -345,6 +328,12 @@ public final class PodCalendar : UIViewController  ,  UICollectionViewDataSource
     
     
     
+}
+
+
+@objc public protocol CalendarDelegate {
+    func selectedDate(_ date : Date)
+    @objc optional func selectMultipleDates(_ dates : [Date])
 }
 
 
