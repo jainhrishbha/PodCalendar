@@ -3,7 +3,7 @@ Pod::Spec.new do |spec|
   spec.platform = :ios
   spec.ios.deployment_target = '11.0'
   spec.name         = "PodCalendar"
-  spec.version      = "0.0.2"
+  spec.version      = "0.0.3"
   spec.summary      = "Adding Calendar to your iOS app."
 
  
