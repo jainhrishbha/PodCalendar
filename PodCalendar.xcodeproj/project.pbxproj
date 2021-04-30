@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		B1D0E95E7D5540B9B0D0C567 /* libPods-PodCalendar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 647BFDC0273B2E134EC0A04A /* libPods-PodCalendar.a */; };
+		CF6F0ECF263C4CF5002BF5BD /* MonthCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6F0ECE263C4CF5002BF5BD /* MonthCollection.swift */; };
+		CF6F0ED6263C4D13002BF5BD /* YearCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6F0ED5263C4D13002BF5BD /* YearCollection.swift */; };
 		CFA07BA626343C890010FD7E /* PodCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFA07B9C26343C890010FD7E /* PodCalendar.framework */; };
 		CFA07BAB26343C890010FD7E /* PodCalendarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFA07BAA26343C890010FD7E /* PodCalendarTests.swift */; };
 		CFA07BAD26343C890010FD7E /* PodCalendar.h in Headers */ = {isa = PBXBuildFile; fileRef = CFA07B9F26343C890010FD7E /* PodCalendar.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -43,6 +45,8 @@
 		16844E22DF99BFE0A66464E0 /* Pods-PodCalendar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PodCalendar.debug.xcconfig"; path = "Target Support Files/Pods-PodCalendar/Pods-PodCalendar.debug.xcconfig"; sourceTree = "<group>"; };
 		2A930E95DEDFDF4CBD456A11 /* Pods-PodCalendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PodCalendar.release.xcconfig"; path = "Target Support Files/Pods-PodCalendar/Pods-PodCalendar.release.xcconfig"; sourceTree = "<group>"; };
 		647BFDC0273B2E134EC0A04A /* libPods-PodCalendar.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PodCalendar.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CF6F0ECE263C4CF5002BF5BD /* MonthCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCollection.swift; sourceTree = "<group>"; };
+		CF6F0ED5263C4D13002BF5BD /* YearCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearCollection.swift; sourceTree = "<group>"; };
 		CFA07B9C26343C890010FD7E /* PodCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PodCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFA07B9F26343C890010FD7E /* PodCalendar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PodCalendar.h; sourceTree = "<group>"; };
 		CFA07BA026343C890010FD7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -144,6 +148,8 @@
 				CFA07BA026343C890010FD7E /* Info.plist */,
 				CFA07BB826343CA00010FD7E /* PodCalendar.swift */,
 				CFA07BC026343D990010FD7E /* MainCollectionCell.swift */,
+				CF6F0ECE263C4CF5002BF5BD /* MonthCollection.swift */,
+				CF6F0ED5263C4D13002BF5BD /* YearCollection.swift */,
 			);
 			path = PodCalendar;
 			sourceTree = "<group>";
@@ -398,8 +404,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF6F0ED6263C4D13002BF5BD /* YearCollection.swift in Sources */,
 				CFA07BC126343D990010FD7E /* MainCollectionCell.swift in Sources */,
 				CFA07BB926343CA00010FD7E /* PodCalendar.swift in Sources */,
+				CF6F0ECF263C4CF5002BF5BD /* MonthCollection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
