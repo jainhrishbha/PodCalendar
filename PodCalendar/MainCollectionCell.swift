@@ -39,9 +39,15 @@ public class MainCollectionCell : UICollectionViewCell {
     
     public override var isSelected: Bool {
         didSet {
-            dateLabel.backgroundColor = isSelected ? .blue : .clear
+            if PodCalendar.calendar.selectionColor != nil {
+                dateLabel.backgroundColor = isSelected ? PodCalendar.calendar.selectionColor : .clear
+            }
+            else {
+                dateLabel.backgroundColor = isSelected ? .cyan : .clear
+            }
         }
     }
+    
     
     
     

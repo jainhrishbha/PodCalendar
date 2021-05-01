@@ -40,7 +40,12 @@ class YearCollection: UICollectionViewCell
     
     public override var isSelected: Bool {
         didSet {
-            yearLabel.backgroundColor = isSelected ? .red : .clear
+            if PodCalendar.calendar.selectionColor != nil {
+                yearLabel.backgroundColor = isSelected ? PodCalendar.calendar.selectionColor : .clear
+            }
+            else {
+                yearLabel.backgroundColor = isSelected ? .cyan : .clear
+            }
         }
     }
 }

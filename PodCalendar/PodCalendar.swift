@@ -1,17 +1,3 @@
-//
-//  PodCalendar.swift
-//  PodCalendar
-//
-//  Created by cedcoss on 24/04/21.
-//
-
-//
-//  PodCalendar.swift
-//  PodCalendar
-//
-//  Created by cedcoss on 24/04/21.
-//
-
 import Foundation
 import DropDown
 import UIKit
@@ -42,14 +28,17 @@ public final class PodCalendar : UIViewController  ,  UICollectionViewDataSource
     var minDate = Int()
     var minMonth = Int()
     var minYear = Int()
-    
+    public var selectionColor : UIColor?
     public static var calendar = PodCalendar()
     public var delegate : CalendarDelegate?
     public var isMultipleTouchEnabled = false
     
+   
+    
     public lazy var innerView : UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = viewBackgroundColor
         return view
     }()
     
@@ -58,7 +47,7 @@ public final class PodCalendar : UIViewController  ,  UICollectionViewDataSource
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Month", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(labelTextColor, for: .normal)
         return button
     }()
     
@@ -66,7 +55,7 @@ public final class PodCalendar : UIViewController  ,  UICollectionViewDataSource
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Year", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(labelTextColor, for: .normal)
         return button
         
     }()
@@ -87,9 +76,8 @@ public final class PodCalendar : UIViewController  ,  UICollectionViewDataSource
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.isMultipleTouchEnabled = true
         collection.backgroundColor = UIColor.clear
-     //   collection.register(MainCollectionCell.self, forCellWithReuseIdentifier: "collection")
         collection.layer.borderWidth = 0.4
-        collection.layer.borderColor = UIColor.black.cgColor
+        collection.layer.borderColor = labelTextColor.cgColor
         return collection
     }()
     
@@ -98,7 +86,7 @@ public final class PodCalendar : UIViewController  ,  UICollectionViewDataSource
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = UIColor.green
         button.setTitle("DONE", for: .normal)
-        button.setTitleColor(UIColor.white, for: .normal)
+        button.setTitleColor(labelTextColor, for: .normal)
         button.addTarget(self, action: #selector(doneButtonTapped(_:)), for: .touchUpInside)
         return button
     }()
@@ -109,7 +97,7 @@ public final class PodCalendar : UIViewController  ,  UICollectionViewDataSource
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = UIColor.red
         button.setTitle("CANCEL", for: .normal)
-        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(labelTextColor, for: .normal)
         button.addTarget(self, action: #selector(cancelButtonTapped(_:)), for: .touchUpInside)
         return button
     }()
@@ -130,8 +118,8 @@ public final class PodCalendar : UIViewController  ,  UICollectionViewDataSource
         collection.dataSource = self
         collection.delegate = self
         collection.layer.borderWidth = 0.4
-        collection.layer.borderColor = UIColor.black.cgColor
-        collection.backgroundColor = .white
+        collection.layer.borderColor = labelTextColor.cgColor
+        collection.backgroundColor = viewBackgroundColor
         collection.register(MonthCollection.self, forCellWithReuseIdentifier: "month")
         return collection
     }()
@@ -144,12 +132,37 @@ public final class PodCalendar : UIViewController  ,  UICollectionViewDataSource
         collection.dataSource = self
         collection.delegate = self
         collection.layer.borderWidth = 0.4
-        collection.layer.borderColor = UIColor.black.cgColor
-        collection.backgroundColor = .white
+        collection.layer.borderColor = labelTextColor.cgColor
+        collection.backgroundColor = viewBackgroundColor
         collection.register(YearCollection.self, forCellWithReuseIdentifier: "year")
         return collection
     }()
     
+    public var viewBackgroundColor: UIColor{
+            if #available(iOS 13.0, *) {
+            
+              return UIColor { (UITraitCollection) -> UIColor in
+                if UITraitCollection.userInterfaceStyle == .dark { return UIColor.black }
+                else { return UIColor.white }
+              }
+            } else {
+                return UIColor.white
+            }
+        }
+    
+    
+    public var labelTextColor: UIColor{
+            if #available(iOS 13.0, *) {
+            
+              return UIColor { (UITraitCollection) -> UIColor in
+                if UITraitCollection.userInterfaceStyle == .dark { return UIColor.white }
+                else { return UIColor.black }
+              }
+            } else {
+                return UIColor.black
+            }
+        }
+
     
     
     
@@ -397,7 +410,7 @@ public final class PodCalendar : UIViewController  ,  UICollectionViewDataSource
             if (presentDate == indexPath.row - firstDayIndex + 2 && presentMonth == self.index && presentYear == yearIndex)  {
                 cell.setUpView()
                 cell.dateLabel.text = String(indexPath.row - firstDayIndex + 2)
-                cell.dateLabel.textColor = UIColor.black
+                cell.dateLabel.textColor = labelTextColor
                 cell.dateLabel.backgroundColor = UIColor.red
                 cell.isUserInteractionEnabled = true
                 return cell
@@ -406,7 +419,7 @@ public final class PodCalendar : UIViewController  ,  UICollectionViewDataSource
             
             cell.setUpView()
             cell.dateLabel.text = String(indexPath.row - firstDayIndex + 2)
-            cell.dateLabel.textColor = UIColor.black
+            cell.dateLabel.textColor = labelTextColor
             cell.isUserInteractionEnabled = true
             return cell
             
@@ -416,8 +429,9 @@ public final class PodCalendar : UIViewController  ,  UICollectionViewDataSource
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "month", for: indexPath) as! MonthCollection
             cell.setUpView()
             cell.monthLabel.text = months[indexPath.row]
+            cell.monthLabel.textColor = labelTextColor
             cell.layer.borderWidth = 0.4
-            cell.layer.borderColor = UIColor.black.cgColor
+            cell.layer.borderColor = labelTextColor.cgColor
             return cell
         }
         
@@ -425,8 +439,9 @@ public final class PodCalendar : UIViewController  ,  UICollectionViewDataSource
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "year", for:  indexPath) as! YearCollection
             cell.setUpView()
             cell.yearLabel.text = String(yearRange[indexPath.row])
+            cell.yearLabel.textColor = labelTextColor
             cell.layer.borderWidth = 0.4
-            cell.layer.borderColor = UIColor.black.cgColor
+            cell.layer.borderColor = labelTextColor.cgColor
             return cell
         }
         return UICollectionViewCell()

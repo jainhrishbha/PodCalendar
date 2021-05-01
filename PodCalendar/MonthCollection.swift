@@ -38,7 +38,12 @@ class MonthCollection: UICollectionViewCell{
     
     public override var isSelected: Bool {
         didSet {
-            monthLabel.backgroundColor = isSelected ? .red : .clear
+            if PodCalendar.calendar.selectionColor != nil {
+                monthLabel.backgroundColor = isSelected ? PodCalendar.calendar.selectionColor : .clear
+            }
+            else {
+                monthLabel.backgroundColor = isSelected ? .cyan : .clear
+            }
         }
     }
     
